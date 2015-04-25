@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Autocomplete</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="just_start_typing">just start typing</string>
     <string name="action_settings">Settings</string>
 </resources>
