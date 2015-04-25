@@ -19,12 +19,10 @@ import java.util.List;
 public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem>{
 
     private final Activity mActivityContext;
-    private List<AutocompleteItem> mAutocompleteList;
     private SelectedRangeFormatter mSelectedRangeFormatter;
 
     public AutocompleteAdapter(Activity activityContext, int resource, List<AutocompleteItem> autocompleteList) {
         super(activityContext, resource, autocompleteList);
-        this.mAutocompleteList = autocompleteList;
         this.mActivityContext = activityContext;
         this.mSelectedRangeFormatter = new SelectedRangeFormatter();
     }
@@ -32,7 +30,7 @@ public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        final AutocompleteItem autocompleteItem = mAutocompleteList.get(position);
+        final AutocompleteItem autocompleteItem = super.getItem(position);
 
         final LayoutInflater inflater = mActivityContext.getLayoutInflater();
         if(convertView == null) {
@@ -43,14 +41,15 @@ public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem>{
         convertView.setTag(viewHolder);
 
         final ViewHolder holder = (ViewHolder) convertView.getTag();
+        holder.autocompleteDisplayText = (TextView) convertView.findViewById(R.id.autocomplete_item_text);
         holder.autocompleteDisplayText.setText(mSelectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
 
         return convertView;
     }
 
     public void searchResultsChanged(List<AutocompleteItem> autocompleteList) {
-        this.mAutocompleteList.clear();
-        this.mAutocompleteList = autocompleteList;
+        clear();
+        addAll(autocompleteList);
         notifyDataSetChanged();
 
     }
