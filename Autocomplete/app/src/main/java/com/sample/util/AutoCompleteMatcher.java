@@ -84,9 +84,6 @@ public class AutoCompleteMatcher {
      * @param upper
      */
     private void appendSelectedRange(int lower, int upper) {
-        if (mItem.getSelectedRanges() == null) {
-            mItem.setSelectedRanges(new ArrayList<SelectedRange>());
-        }
         mItem.getSelectedRanges().add(new SelectedRange(lower, upper));
     }
 }
