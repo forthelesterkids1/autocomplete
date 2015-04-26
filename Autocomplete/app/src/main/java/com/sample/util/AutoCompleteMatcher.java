@@ -38,7 +38,6 @@ public class AutoCompleteMatcher {
             String ns = mMasterSearchString.substring(i, i + 1);
             if (ns.equalsIgnoreCase(compareString.substring(0, 1))) {
                 appendSelectedRange(0, 1);
-                continue;
             }
             else {
                 int compareIndex = mMasterCompareString.length() - compareString.length();
