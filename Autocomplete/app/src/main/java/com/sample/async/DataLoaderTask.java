@@ -13,21 +13,31 @@ import java.util.ArrayList;
 public class DataLoaderTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
     private Searchable mSearchable;
-    private final int randomStringLength = 20;
-    private final int randomStringListSize = 1000;
 
     public DataLoaderTask(Searchable searchable)
     {
         this.mSearchable = searchable;
     }
 
+    /**
+     * Load random list of strings in the background
+     * @param obj
+     * @return ArrayList<String> of random strings
+     */
     @Override
     protected ArrayList<String> doInBackground(Void... obj) {
+
+        final int randomStringLength = 20;
+        final int randomStringListSize = 100;
 
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
         return randomStringGenerator.loadRandomAlphanumericStrings(randomStringLength, randomStringListSize);
     }
 
+    /**
+     * Post the list to the UI thread after it has been loaded
+     * @param searchableList
+     */
     protected void onPostExecute(ArrayList<String> searchableList) {
         mSearchable.updateSearchableStringsList(searchableList);
     }

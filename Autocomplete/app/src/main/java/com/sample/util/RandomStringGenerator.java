@@ -8,9 +8,14 @@ import java.util.Random;
  */
 public class RandomStringGenerator {
 
-    static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    static final String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static Random random = new Random();
 
+    /**
+     * Generate random string to be used as dummy data
+     * @param stringLength
+     * @return random string
+     */
     public String randomString(int stringLength)
     {
         StringBuilder sb = new StringBuilder(stringLength);
@@ -24,6 +29,12 @@ public class RandomStringGenerator {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param stringLength
+     * @param randomStringListSize
+     * @return ArrayList<String> list of random strings
+     */
     public ArrayList<String> loadRandomAlphanumericStrings(int stringLength, int randomStringListSize) {
         ArrayList<String> alphaNumericStringList = new ArrayList<>();
 

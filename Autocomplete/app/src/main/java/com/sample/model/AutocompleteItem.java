@@ -1,7 +1,5 @@
 package com.sample.model;
 
-import android.util.Range;
-
 import java.util.ArrayList;
 
 /**
@@ -9,23 +7,27 @@ import java.util.ArrayList;
  */
 public class AutocompleteItem {
 
-    private String autocompleteTerm;
-    private ArrayList<SelectedRange> selectedRanges;
+    private String mAutocompleteTerm;
+    private ArrayList<SelectedRange> mSelectedRanges;
 
+    public AutocompleteItem(String autocompleteTerm, ArrayList<SelectedRange> selectedRanges){
+        this.mAutocompleteTerm = autocompleteTerm;
+        this.mSelectedRanges = selectedRanges;
+    }
     public String getAutocompleteTerm() {
-        return autocompleteTerm;
+        return mAutocompleteTerm;
     }
 
-    public void setAutocompleteTerm(String autocompleteTerm) {
-        this.autocompleteTerm = autocompleteTerm;
+    public void setAutocompleteTerm(String mAutocompleteTerm) {
+        this.mAutocompleteTerm = mAutocompleteTerm;
     }
 
     public ArrayList<SelectedRange> getSelectedRanges() {
-        return selectedRanges;
+        return mSelectedRanges;
     }
 
-    public void setSelectedRanges(ArrayList<SelectedRange> selectedRanges) {
-        this.selectedRanges = selectedRanges;
+    public void setSelectedRanges(ArrayList<SelectedRange> mSelectedRanges) {
+        this.mSelectedRanges = mSelectedRanges;
     }
 
 }
