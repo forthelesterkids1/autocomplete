@@ -21,12 +21,19 @@ public class AutoCompleteMatcher {
     }
 
     /**
+     * public method to match strings
+     * @return propulated Autocomplete item
+     */
+    public AutocompleteItem matchStrings(){
+        return stringsMatch(mMasterCompareString, mMasterSearchString);
+    }
+    /**
      * Algortihm to compare strings and match ranges
      * @param compareString
      * @param searchTerm
      * @return AutocompleteItem with selectedRanges
      */
-    public AutocompleteItem stringsMatch(String compareString, String searchTerm) {
+    private AutocompleteItem stringsMatch(String compareString, String searchTerm) {
         for (int i = 0; i < mMasterSearchString.length(); i++){
             String ns = mMasterSearchString.substring(i, i + 1);
             if (ns.equalsIgnoreCase(compareString.substring(0, 1))) {

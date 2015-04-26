@@ -91,7 +91,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
         for (String compareString : mCompareStrings) {
 
             AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, searchTerm);
-            AutocompleteItem autocompleteItem = autoCompleteMatcher.stringsMatch(compareString, searchTerm);
+            AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
             if (autocompleteItem != null && autocompleteItem.getSelectedRanges() != null) {
                 matchList.add(autocompleteItem);
             }
@@ -106,4 +106,5 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
     private void updateAdapter(ArrayList<AutocompleteItem> autocompleteItems) {
         ((AutocompleteAdapter) mResultsList.getAdapter()).searchResultsChanged(autocompleteItems);
     }
+
 }

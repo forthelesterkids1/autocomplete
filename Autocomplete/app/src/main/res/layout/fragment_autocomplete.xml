@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/search_term"
         android:textColorHint="@color/background_floating_material_dark"
-        android:hint="@string/just_start_typing"
+        android:hint="@string/just_start_typing_A"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ListView
