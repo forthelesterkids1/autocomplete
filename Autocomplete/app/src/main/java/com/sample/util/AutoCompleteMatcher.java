@@ -35,14 +35,14 @@ public class AutoCompleteMatcher {
      */
     private AutocompleteItem stringsMatch(String compareString, String searchTerm) {
         for (int i = 0; i < mMasterSearchString.length(); i++){
-            String ns = mMasterSearchString.substring(i, i + 1);
-            if (ns.equalsIgnoreCase(compareString.substring(0, 1))) {
+            String nextString = mMasterSearchString.substring(i, i + 1);
+            if (nextString.equalsIgnoreCase(compareString.substring(0, 1))) {
                 appendSelectedRange(0, 1);
             }
             else {
                 int compareIndex = mMasterCompareString.length() - compareString.length();
                 String newCompare = new String(mMasterCompareString.substring(compareIndex + 1));
-                if(!appendNextRange(findNextMatchingChar(newCompare, ns))){
+                if(!appendNextRange(findNextMatchingChar(newCompare, nextString))){
                     return null;
                 }
             }
