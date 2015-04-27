@@ -16,7 +16,7 @@ public class SelectedRangeFormatter {
      */
     public Spannable formatAutoCompleteItemAsSpannableText(AutocompleteItem autocompleteItem)
     {
-        return formatAutoCompleteItemAsSpannableText(autocompleteItem, Color.YELLOW);
+        return formatAutoCompleteItemAsSpannableText(autocompleteItem, Color.GREEN);
     }
 
     /**
