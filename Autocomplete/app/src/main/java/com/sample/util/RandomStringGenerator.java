@@ -19,9 +19,7 @@ public class RandomStringGenerator {
     public String randomString(int stringLength)
     {
         StringBuilder sb = new StringBuilder(stringLength);
-        String prefix = "Activity";
 
-        sb.append(prefix);
         for( int i = 0; i < stringLength; i++ ){
             int randomPosition = random.nextInt(alphabet.length());
             sb.append(alphabet.charAt(randomPosition));

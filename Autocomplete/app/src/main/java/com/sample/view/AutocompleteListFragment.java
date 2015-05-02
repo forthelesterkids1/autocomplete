@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.sample.adapter.AutocompleteAdapter;
 import com.sample.async.DataLoaderTask;
+import com.sample.data.AutocompleteDataSource;
+import com.sample.data.Matchable;
 import com.sample.data.Searchable;
 import com.sample.model.AutocompleteItem;
 import com.sample.util.AutoCompleteMatcher;
@@ -28,6 +31,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
     private List<String> mCompareStrings = new ArrayList<>();
     private ListView mResultsList;
     private EditText mSearchableText;
+    private AutocompleteDataSource mAutocompleteDataSource;
 
     public AutocompleteListFragment() {
     }
@@ -36,12 +40,15 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_autocomplete, container, false);
-        mSearchableText = (EditText) view.findViewById(R.id.search_term);
-        mResultsList = (ListView) view.findViewById(R.id.autocomplete_list);
+        mSearchableText = (EditText)view.findViewById(R.id.search_term);
+        mSearchableText.setEnabled(false);
+        mResultsList = (ListView)view.findViewById(R.id.autocomplete_list);
         mResultsList.setAdapter(new AutocompleteAdapter(getActivity(), R.id.autocomplete_list, new ArrayList<AutocompleteItem>()));
 
         addKeyListeners();
         loadSearchableStrings();
+
+        mAutocompleteDataSource = new AutocompleteDataSource((Matchable)mResultsList.getAdapter());
 
         return view;
     }
@@ -79,7 +86,8 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      */
     @Override
     public void updateSearchableStringsList(List<String> searchableStringsList) {
-        this.mCompareStrings = searchableStringsList;
+        mAutocompleteDataSource.setAutocompleteDataSource(searchableStringsList);
+        mSearchableText.setEnabled(true);
     }
 
     /**
@@ -87,24 +95,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      * @param searchTerm term to match against arraylist
      */
     private void matchTerms(String searchTerm) {
-        ArrayList<AutocompleteItem> matchList = new ArrayList<>();
-        for (String compareString : mCompareStrings) {
-
-            AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, searchTerm);
-            AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
-            if (autocompleteItem != null && autocompleteItem.getSelectedRanges() != null) {
-                matchList.add(autocompleteItem);
-            }
-        }
-        updateAdapter(matchList);
-    }
-
-    /**
-     * update autocomplete adapter with matched values
-     * @param autocompleteItems
-     */
-    private void updateAdapter(ArrayList<AutocompleteItem> autocompleteItems) {
-        ((AutocompleteAdapter) mResultsList.getAdapter()).searchResultsChanged(autocompleteItems);
+        mAutocompleteDataSource.matchTerms(searchTerm);
     }
 
 }
