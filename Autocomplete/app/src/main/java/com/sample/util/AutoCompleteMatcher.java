@@ -50,8 +50,9 @@ public class AutoCompleteMatcher {
             String subString = String.valueOf(matchTerm.charAt(i));
             int indexOf = compareString.toLowerCase().indexOf(subString.toLowerCase(), currentIndexOf);
             if (indexOf != -1) {
-                appendSelectedRange(indexOf, indexOf + 1);
-                currentIndexOf = (mMasterCompareString.length() - compareString.length()) + (indexOf + 1);
+                int movingIndex = indexOf + 1;
+                appendSelectedRange(indexOf, movingIndex);
+                currentIndexOf = movingIndex;
             } else {
                 return null;
             }
