@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.openeco.model;
 
 /**
  * Created by christopherlester on 4/24/15.

@@ -1,6 +1,4 @@
-package com.sample.data;
-
-import com.sample.model.AutocompleteItem;
+package com.openeco.data;
 
 import java.util.List;
 

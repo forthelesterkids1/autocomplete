@@ -1,6 +1,6 @@
-package com.sample.data;
+package com.openeco.data;
 
-import com.sample.model.AutocompleteItem;
+import com.openeco.model.AutocompleteItem;
 
 /**
  * Created by christopherlester on 5/2/15.

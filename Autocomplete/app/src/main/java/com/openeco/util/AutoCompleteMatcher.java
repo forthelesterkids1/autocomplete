@@ -1,7 +1,7 @@
-package com.sample.util;
+package com.openeco.util;
 
-import com.sample.model.AutocompleteItem;
-import com.sample.model.SelectedRange;
+import com.openeco.model.AutocompleteItem;
+import com.openeco.model.SelectedRange;
 
 import java.util.ArrayList;
 

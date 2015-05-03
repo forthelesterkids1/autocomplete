@@ -1,11 +1,11 @@
-package com.sample.data;
+package com.openeco.data;
 
 import android.os.AsyncTask;
 
-import com.sample.model.AutocompleteItem;
-import com.sample.util.AutoCompleteMatcher;
-import com.sample.util.PerformanceTest;
-import com.sample.util.SelectedRangeFormatter;
+import com.openeco.model.AutocompleteItem;
+import com.openeco.util.AutoCompleteMatcher;
+import com.openeco.util.PerformanceTest;
+import com.openeco.util.SelectedRangeFormatter;
 
 import java.util.Collections;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.sample.util;
+package com.openeco.util;
 
 import android.util.Log;
 

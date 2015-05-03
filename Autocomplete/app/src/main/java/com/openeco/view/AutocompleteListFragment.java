@@ -1,4 +1,4 @@
-package com.sample.view;
+package com.openeco.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.sample.adapter.AutocompleteAdapter;
-import com.sample.async.DataLoaderTask;
-import com.sample.data.AutocompleteDataSource;
-import com.sample.data.Matchable;
-import com.sample.data.Searchable;
-import com.sample.model.AutocompleteItem;
+import com.openeco.adapter.AutocompleteAdapter;
+import com.openeco.async.DataLoaderTask;
+import com.openeco.data.AutocompleteDataSource;
+import com.openeco.data.Matchable;
+import com.openeco.data.Searchable;
+import com.openeco.model.AutocompleteItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      * Load strings in the background
      */
     private void loadSearchableStrings() {
-        new DataLoaderTask(this).execute();
+        new DataLoaderTask(this, getActivity()).execute();
     }
 
     /**

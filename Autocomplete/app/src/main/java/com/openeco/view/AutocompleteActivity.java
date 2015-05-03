@@ -1,12 +1,7 @@
-package com.sample.view;
+package com.openeco.view;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AutocompleteActivity extends ActionBarActivity {

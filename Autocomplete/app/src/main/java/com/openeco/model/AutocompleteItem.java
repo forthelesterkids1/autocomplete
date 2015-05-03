@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.openeco.model;
 
 import android.text.Spannable;
 

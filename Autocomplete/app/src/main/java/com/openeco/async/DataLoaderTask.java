@@ -1,9 +1,10 @@
-package com.sample.async;
+package com.openeco.async;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
-import com.sample.data.Searchable;
-import com.sample.util.RandomStringGenerator;
+import com.openeco.data.Searchable;
+import com.openeco.util.RandomStringGenerator;
 
 import java.util.ArrayList;
 
@@ -13,10 +14,12 @@ import java.util.ArrayList;
 public class DataLoaderTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
     private Searchable mSearchable;
+    private Context mContext;
 
-    public DataLoaderTask(Searchable searchable)
+    public DataLoaderTask(Searchable searchable, Context context)
     {
         this.mSearchable = searchable;
+        this.mContext = context;
     }
 
     /**
@@ -30,7 +33,7 @@ public class DataLoaderTask extends AsyncTask<Void, Void, ArrayList<String>> {
         final int randomStringLength = 30;
         final int randomStringListSize = 10000;
 
-        RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
+        RandomStringGenerator randomStringGenerator = new RandomStringGenerator(mContext);
         return randomStringGenerator.loadRandomAlphanumericStrings(randomStringLength, randomStringListSize);
     }
 
