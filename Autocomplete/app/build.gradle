@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.sample.christopherlester.autocomplete"
+        applicationId "com.sample.autocomplete"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

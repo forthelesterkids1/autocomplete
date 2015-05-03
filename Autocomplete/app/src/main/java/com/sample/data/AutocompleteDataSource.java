@@ -1,18 +1,15 @@
 package com.sample.data;
 
-import android.database.Cursor;
 import android.os.AsyncTask;
 
 import com.sample.model.AutocompleteItem;
 import com.sample.util.AutoCompleteMatcher;
+import com.sample.util.PerformanceTest;
 import com.sample.util.SelectedRangeFormatter;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by christopherlester on 5/2/15.
@@ -24,28 +21,9 @@ public class AutocompleteDataSource {
     private MatchingTask mMatchingTask;
     private SelectedRangeFormatter mSelectedRangeFormatter = new SelectedRangeFormatter();
 
-    public AutocompleteDataSource(Matchable matchable) {
-        this.mMatchable = matchable;
-    }
-
     public AutocompleteDataSource(Matchable matchable, List<String> dataSource) {
-        this(matchable);
-        setAutocompleteDataSource(dataSource);
-    }
-
-    public AutocompleteDataSource(Matchable matchable, Map<String, String> dataSource) {
-        this(matchable);
-        setAutocompleteDataSource(dataSource);
-    }
-
-    public AutocompleteDataSource(Matchable matchable, Set<String> dataSource) {
-        this(matchable);
-        setAutocompleteDataSource(dataSource);
-    }
-
-    public AutocompleteDataSource(Matchable matchable, Cursor dataSource) {
-        this(matchable);
-        setAutocompleteDataSource(dataSource);
+        this.mMatchable = matchable;
+        setupAutocompleteDataSource(dataSource);
     }
 
     public void setupAutocompleteDataSource(List<String> dataSource) {
@@ -53,68 +31,51 @@ public class AutocompleteDataSource {
         setAutocompleteDataSource(dataSource);
     }
 
-    public void setAutocompleteDataSource(Cursor dataSource) {
-        List<String> autocompleteDataSource = new ArrayList<String>();
-        while(dataSource.moveToNext()){
-            mAutocompleteDataSource.add((dataSource.getString(0)));
-        }
-        setupAutocompleteDataSource(autocompleteDataSource);
-    }
-
-    public void setAutocompleteDataSource(Set<String> dataSource) {
-        List<String> autocompleteDataSource = new ArrayList<String>();
-        for(String dataItem:dataSource){
-            autocompleteDataSource.add(dataItem);
-        }
-
-        setupAutocompleteDataSource(autocompleteDataSource);
-    }
-
-    public void setAutocompleteDataSource(Map<String, String> dataSource) {
-        List<String> autocompleteDataSource = new ArrayList<String>();
-        Iterator it = dataSource.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            autocompleteDataSource.add((String)pair.getValue());
-        }
-
-        setupAutocompleteDataSource(autocompleteDataSource);
-    }
-
     public void setAutocompleteDataSource(List<String> autocompleteDataSource) {
         this.mAutocompleteDataSource = autocompleteDataSource;
     }
 
-    public void matchTerms(String searchTerm){
-        if(mMatchingTask == null){
-            mMatchingTask = new MatchingTask();
-            mMatchingTask.execute(searchTerm);
-        }
-        else {
-            mMatchingTask.cancel(true);
-            mMatchingTask = new MatchingTask();
-            mMatchingTask.execute(searchTerm);
-        }
+    public void matchTerms(String matchTerm) {
+        if (mMatchingTask == null) {
+            startMatch(matchTerm);
 
+        } else {
+            mMatchingTask.cancel(true);
+            startMatch(matchTerm);
+        }
+    }
+
+    private void startMatch(String searchTerm) {
+        mMatchingTask = new MatchingTask();
+        mMatchingTask.execute(searchTerm);
     }
 
     class MatchingTask extends AsyncTask<String, AutocompleteItem, Void> {
 
-        private final String TAG = MatchingTask.class.getName();
-
         @Override
-        protected Void doInBackground(String... searchTerms) {
+        protected Void doInBackground(String... matchTerms) {
 
-            String searchTerm = searchTerms[0];
+            String matchTerm = matchTerms[0];
+
+            if (matchTerm == null) {
+                return null;
+            }
+
+            Date operationStart = new Date();
+
             for (String compareString : mAutocompleteDataSource) {
 
-                AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, searchTerm);
+                AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, matchTerm);
                 AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
                 if (autocompleteItem != null && autocompleteItem.getSelectedRanges() != null) {
                     autocompleteItem.setSpannableRange(mSelectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
                     publishProgress(autocompleteItem);
                 }
             }
+
+            Date operationEnd = new Date();
+            PerformanceTest.getInstance().printDuration(operationStart, operationEnd);
+
             return null;
         }
 

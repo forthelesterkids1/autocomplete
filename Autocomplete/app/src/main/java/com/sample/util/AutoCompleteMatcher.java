@@ -11,81 +11,58 @@ import java.util.ArrayList;
 public class AutoCompleteMatcher {
 
     private String mMasterCompareString;
-    private String mMasterSearchString;
+    private String mMasterMatchString;
     private AutocompleteItem mItem;
 
-    public AutoCompleteMatcher(String masterCompareString, String masterSearchString) {
+    public AutoCompleteMatcher(String masterCompareString, String masterMatchString) {
         this.mMasterCompareString = masterCompareString;
-        this.mMasterSearchString = masterSearchString;
+        this.mMasterMatchString = masterMatchString;
         this.mItem = new AutocompleteItem(masterCompareString, new ArrayList<SelectedRange>());
     }
 
     /**
      * public method to match strings
-     * @return propulated Autocomplete item
+     *
+     * @return populated Autocomplete item
      */
-    public AutocompleteItem matchStrings(){
-        return stringsMatch(mMasterCompareString, mMasterSearchString);
+    public AutocompleteItem matchStrings() {
+        return stringsMatch(mMasterCompareString, mMasterMatchString);
     }
-    /**
-     * Algortihm to compare strings and match ranges
-     * @param compareString
-     * @param searchTerm
-     * @return AutocompleteItem with selectedRanges
-     */
-    private AutocompleteItem stringsMatch(String compareString, String searchTerm) {
-        for (int i = 0; i < mMasterSearchString.length(); i++){
-            String nextString = mMasterSearchString.substring(i, i + 1);
-            if (nextString.equalsIgnoreCase(compareString.substring(0, 1))) {
-                appendSelectedRange(0, 1);
+
+    private AutocompleteItem stringsMatch(String compareString, String matchTerm) {
+        if(matchTerm.length() == 0 || compareString.length() == 0){
+            return null;
+        }
+
+        int indexOf = compareString.toLowerCase().indexOf(matchTerm.charAt(0));
+        if (indexOf != 0) {
+            return null;
+        }
+        else {
+            return matchIndexOf(mMasterCompareString, mMasterMatchString);
+
+        }
+    }
+
+    private AutocompleteItem matchIndexOf(String compareString, String matchTerm) {
+        int currentIndexOf = 0;
+        for (int i = 0; i < matchTerm.length(); i++) {
+            String subString = String.valueOf(matchTerm.charAt(i));
+            int indexOf = compareString.toLowerCase().indexOf(subString.toLowerCase(), currentIndexOf);
+            if (indexOf != -1) {
+                appendSelectedRange(indexOf, indexOf + 1);
+                currentIndexOf = (mMasterCompareString.length() - compareString.length()) + (indexOf + 1);
+            } else {
+                return null;
             }
-            else {
-                int compareIndex = mMasterCompareString.length() - compareString.length();
-                String newCompare = new String(mMasterCompareString.substring(compareIndex + 1));
-                if(!appendNextRange(findNextMatchingChar(newCompare, nextString))){
-                    return null;
-                }
-            }
+
         }
         return mItem;
-
-    }
-
-    /**
-     * Find the next matching string in the sequence
-     * @param compareString
-     * @param searchTerm
-     * @return matched String
-     */
-    private String findNextMatchingChar(String compareString, String searchTerm) {
-        for (int i = 0; i < compareString.length(); i++) {
-            if (compareString.substring(i, i + 1).equalsIgnoreCase(searchTerm)) {
-                String newCompareString = new String(compareString.substring(i));
-                return newCompareString;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Appends the range using the upper and lower bound for the selected text
-     * @param currentString
-     * @return boolean if the range is appended or not
-     */
-    private boolean appendNextRange(String currentString){
-        if(currentString == null || mMasterCompareString == null) {
-            return false;
-        }
-        else{
-            int lower = mMasterCompareString.length() - currentString.length();
-            int upper = lower + 1;
-            appendSelectedRange(lower, upper);
-            return true;
-        }
     }
 
     /**
      * Append the selected range based on the lower and upper indexes
+     *
      * @param lower
      * @param upper
      */

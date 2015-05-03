@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.sample.adapter.AutocompleteAdapter;
 import com.sample.async.DataLoaderTask;
@@ -17,7 +16,6 @@ import com.sample.data.AutocompleteDataSource;
 import com.sample.data.Matchable;
 import com.sample.data.Searchable;
 import com.sample.model.AutocompleteItem;
-import com.sample.util.AutoCompleteMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +25,8 @@ import java.util.List;
  */
 public class AutocompleteListFragment extends Fragment implements Searchable {
 
-    private final String TAG = AutocompleteListFragment.class.getName();
-    private List<String> mCompareStrings = new ArrayList<>();
     private ListView mResultsList;
-    private EditText mSearchableText;
+    private EditText mMatchableText;
     private AutocompleteDataSource mAutocompleteDataSource;
 
     public AutocompleteListFragment() {
@@ -40,16 +36,13 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_autocomplete, container, false);
-        mSearchableText = (EditText)view.findViewById(R.id.search_term);
-        mSearchableText.setEnabled(false);
+        mMatchableText = (EditText)view.findViewById(R.id.search_term);
+        mMatchableText.setEnabled(false);
         mResultsList = (ListView)view.findViewById(R.id.autocomplete_list);
         mResultsList.setAdapter(new AutocompleteAdapter(getActivity(), R.id.autocomplete_list, new ArrayList<AutocompleteItem>()));
 
         addKeyListeners();
         loadSearchableStrings();
-
-        mAutocompleteDataSource = new AutocompleteDataSource((Matchable)mResultsList.getAdapter());
-
         return view;
     }
 
@@ -57,17 +50,19 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      * Listen for keypressed on soft keyboard then search string
      */
     private void addKeyListeners() {
-        mSearchableText.addTextChangedListener(new TextWatcher() {
+        mMatchableText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                matchTerms(mSearchableText.getText().toString());
+                matchTerms(mMatchableText.getText().toString());
             }
 
         });
@@ -82,20 +77,21 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
 
     /**
      * Set search strings to be used for autocomplete
-     * @param searchableStringsList
+     * @param matchableStringsList
      */
     @Override
-    public void updateSearchableStringsList(List<String> searchableStringsList) {
-        mAutocompleteDataSource.setAutocompleteDataSource(searchableStringsList);
-        mSearchableText.setEnabled(true);
+    public void updateSearchableStringsList(List<String> matchableStringsList) {
+        mAutocompleteDataSource = new AutocompleteDataSource((Matchable)mResultsList.getAdapter(),
+                matchableStringsList);
+        mMatchableText.setEnabled(true);
     }
 
     /**
      *
-     * @param searchTerm term to match against arraylist
+     * @param matchTerm term to match against arraylist
      */
-    private void matchTerms(String searchTerm) {
-        mAutocompleteDataSource.matchTerms(searchTerm);
+    private void matchTerms(String matchTerm) {
+        mAutocompleteDataSource.matchTerms(matchTerm);
     }
 
 }

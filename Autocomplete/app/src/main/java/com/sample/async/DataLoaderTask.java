@@ -28,7 +28,7 @@ public class DataLoaderTask extends AsyncTask<Void, Void, ArrayList<String>> {
     protected ArrayList<String> doInBackground(Void... obj) {
 
         final int randomStringLength = 30;
-        final int randomStringListSize = 1000;
+        final int randomStringListSize = 10000;
 
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
         return randomStringGenerator.loadRandomAlphanumericStrings(randomStringLength, randomStringListSize);
