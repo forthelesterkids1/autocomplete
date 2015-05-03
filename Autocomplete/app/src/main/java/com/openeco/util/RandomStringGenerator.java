@@ -45,19 +45,25 @@ public class RandomStringGenerator {
     public ArrayList<String> loadRandomAlphanumericStrings(int stringLength, int randomStringListSize) {
         ArrayList<String> alphaNumericStringList = new ArrayList<>();
 
-        //for(int i = 0; i < randomStringListSize; i++){
-          //  alphaNumericStringList.add(randomString(stringLength));
-        //}
+        for(int i = 0; i < randomStringListSize; i++){
+            alphaNumericStringList.add(randomString(stringLength));
+        }
+
+        return alphaNumericStringList;
+    }
+
+    public ArrayList<String> loadPackageNames(){
+        ArrayList<String> packageNames = new ArrayList<>();
 
         ArrayList<PackageInfo> res = new ArrayList<PackageInfo>();
         PackageManager pm = mContext.getPackageManager();
         List<PackageInfo> packs = pm.getInstalledPackages(0);
 
         for(PackageInfo info:packs){
-            alphaNumericStringList.add(info.packageName);
+            packageNames.add(info.packageName);
         }
 
-        return alphaNumericStringList;
+        return packageNames;
     }
 
 }
