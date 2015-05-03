@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.openeco.view" >
+    package="com.autocomplete.view" >
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.openeco.view.AutocompleteActivity"
+            android:name="com.autocomplete.view.AutocompleteActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

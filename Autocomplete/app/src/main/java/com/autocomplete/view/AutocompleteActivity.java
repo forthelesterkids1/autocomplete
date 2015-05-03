@@ -1,4 +1,4 @@
-package com.openeco.view;
+package com.autocomplete.view;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

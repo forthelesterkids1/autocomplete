@@ -1,4 +1,4 @@
-package com.openeco.data;
+package com.autocomplete.data;
 
 import java.util.List;
 

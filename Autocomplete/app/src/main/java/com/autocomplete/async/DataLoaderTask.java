@@ -1,10 +1,10 @@
-package com.openeco.async;
+package com.autocomplete.async;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.openeco.data.Searchable;
-import com.openeco.util.RandomStringGenerator;
+import com.autocomplete.data.Searchable;
+import com.autocomplete.util.RandomStringGenerator;
 
 import java.util.ArrayList;
 

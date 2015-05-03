@@ -1,4 +1,4 @@
-package com.openeco.model;
+package com.autocomplete.model;
 
 import android.text.Spannable;
 

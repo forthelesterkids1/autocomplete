@@ -1,4 +1,4 @@
-package com.openeco.util;
+package com.autocomplete.util;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

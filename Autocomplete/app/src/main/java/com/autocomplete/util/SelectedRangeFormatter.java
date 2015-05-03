@@ -1,11 +1,11 @@
-package com.openeco.util;
+package com.autocomplete.util;
 
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
 
-import com.openeco.model.AutocompleteItem;
-import com.openeco.model.SelectedRange;
+import com.autocomplete.model.AutocompleteItem;
+import com.autocomplete.model.SelectedRange;
 
 public class SelectedRangeFormatter {
 

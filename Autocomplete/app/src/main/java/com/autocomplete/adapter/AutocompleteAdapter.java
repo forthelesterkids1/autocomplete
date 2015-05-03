@@ -1,4 +1,4 @@
-package com.openeco.adapter;
+package com.autocomplete.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.openeco.data.Matchable;
-import com.openeco.model.AutocompleteItem;
-import com.openeco.view.R;
+import com.autocomplete.data.Matchable;
+import com.autocomplete.model.AutocompleteItem;
+import com.autocomplete.view.R;
 
 import java.util.List;
 

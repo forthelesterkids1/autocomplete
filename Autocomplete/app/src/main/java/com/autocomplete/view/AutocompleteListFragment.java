@@ -1,4 +1,4 @@
-package com.openeco.view;
+package com.autocomplete.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.openeco.adapter.AutocompleteAdapter;
-import com.openeco.async.DataLoaderTask;
-import com.openeco.data.AutocompleteDataSource;
-import com.openeco.data.Matchable;
-import com.openeco.data.Searchable;
-import com.openeco.model.AutocompleteItem;
+import com.autocomplete.adapter.AutocompleteAdapter;
+import com.autocomplete.async.DataLoaderTask;
+import com.autocomplete.data.AutocompleteDataSource;
+import com.autocomplete.data.Matchable;
+import com.autocomplete.data.Searchable;
+import com.autocomplete.model.AutocompleteItem;
 
 import java.util.ArrayList;
 import java.util.List;

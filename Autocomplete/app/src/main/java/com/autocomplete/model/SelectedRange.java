@@ -1,4 +1,4 @@
-package com.openeco.model;
+package com.autocomplete.model;
 
 /**
  * Created by christopherlester on 4/24/15.
