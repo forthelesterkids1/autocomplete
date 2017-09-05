@@ -21,7 +21,6 @@ public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem> implemen
         super(activityContext, resource, autocompleteList);
         this.activityContext = activityContext;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
