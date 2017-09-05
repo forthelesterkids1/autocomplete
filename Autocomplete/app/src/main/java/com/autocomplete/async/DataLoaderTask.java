@@ -7,6 +7,7 @@ import com.autocomplete.data.Searchable;
 import com.autocomplete.util.RandomStringGenerator;
 
 import java.util.Collection;
+import java.util.List;
 
 public class DataLoaderTask extends AsyncTask<Void, Void, Collection<String>> {
 
@@ -35,7 +36,7 @@ public class DataLoaderTask extends AsyncTask<Void, Void, Collection<String>> {
      * Post the list to the UI thread after it has been loaded
      * @param searchableList
      */
-    protected void onPostExecute(Collection<String> searchableList) {
+    protected void onPostExecute(List<String> searchableList) {
         searchable.updateSearchableStringsList(searchableList);
     }
 
