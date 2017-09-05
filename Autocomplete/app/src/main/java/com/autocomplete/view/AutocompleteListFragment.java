@@ -20,14 +20,11 @@ import com.autocomplete.model.AutocompleteItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class AutocompleteListFragment extends Fragment implements Searchable {
 
-    private ListView mResultsList;
-    private EditText mMatchableText;
-    private AutocompleteDataSource mAutocompleteDataSource;
+    private ListView resultsList;
+    private EditText matchableText;
+    private AutocompleteDataSource autocompleteDataSource;
 
     public AutocompleteListFragment() {
     }
@@ -36,10 +33,10 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_autocomplete, container, false);
-        mMatchableText = (EditText)view.findViewById(R.id.search_term);
-        mMatchableText.setEnabled(false);
-        mResultsList = (ListView)view.findViewById(R.id.autocomplete_list);
-        mResultsList.setAdapter(new AutocompleteAdapter(getActivity(), R.id.autocomplete_list, new ArrayList<AutocompleteItem>()));
+        matchableText = (EditText)view.findViewById(R.id.search_term);
+        matchableText.setEnabled(false);
+        resultsList = (ListView)view.findViewById(R.id.autocomplete_list);
+        resultsList.setAdapter(new AutocompleteAdapter(getActivity(), R.id.autocomplete_list, new ArrayList<AutocompleteItem>()));
 
         addKeyListeners();
         loadSearchableStrings();
@@ -50,7 +47,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      * Listen for keypressed on soft keyboard then search string
      */
     private void addKeyListeners() {
-        mMatchableText.addTextChangedListener(new TextWatcher() {
+        matchableText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -62,7 +59,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                matchTerms(mMatchableText.getText().toString());
+                matchTerms(matchableText.getText().toString());
             }
 
         });
@@ -81,9 +78,9 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      */
     @Override
     public void updateSearchableStringsList(List<String> matchableStringsList) {
-        mAutocompleteDataSource = new AutocompleteDataSource((Matchable)mResultsList.getAdapter(),
+        autocompleteDataSource = new AutocompleteDataSource((Matchable) resultsList.getAdapter(),
                 matchableStringsList);
-        mMatchableText.setEnabled(true);
+        matchableText.setEnabled(true);
     }
 
     /**
@@ -91,7 +88,7 @@ public class AutocompleteListFragment extends Fragment implements Searchable {
      * @param matchTerm term to match against arraylist
      */
     private void matchTerms(String matchTerm) {
-        mAutocompleteDataSource.matchTerms(matchTerm);
+        autocompleteDataSource.matchTerms(matchTerm);
     }
 
 }

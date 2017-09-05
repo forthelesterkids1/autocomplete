@@ -7,22 +7,20 @@ import com.autocomplete.util.AutoCompleteMatcher;
 import com.autocomplete.util.PerformanceTest;
 import com.autocomplete.util.SelectedRangeFormatter;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by christopherlester on 5/2/15.
- */
 public class AutocompleteDataSource {
 
-    private List<String> mAutocompleteDataSource;
-    private Matchable mMatchable;
-    private MatchingTask mMatchingTask;
-    private SelectedRangeFormatter mSelectedRangeFormatter = new SelectedRangeFormatter();
+    private Collection<? extends String> autocompleteDataSource;
+    private Matchable matchable;
+    private MatchingTask matchingTask;
+    private SelectedRangeFormatter selectedRangeFormatter = new SelectedRangeFormatter();
 
     public AutocompleteDataSource(Matchable matchable, List<String> dataSource) {
-        this.mMatchable = matchable;
+        this.matchable = matchable;
         setupAutocompleteDataSource(dataSource);
     }
 
@@ -31,23 +29,23 @@ public class AutocompleteDataSource {
         setAutocompleteDataSource(dataSource);
     }
 
-    public void setAutocompleteDataSource(List<String> autocompleteDataSource) {
-        this.mAutocompleteDataSource = autocompleteDataSource;
+    public void setAutocompleteDataSource(List<String>autocompleteDataSource) {
+        this.autocompleteDataSource = autocompleteDataSource;
     }
 
     public void matchTerms(String matchTerm) {
-        if (mMatchingTask == null) {
+        if (matchingTask == null) {
             startMatch(matchTerm);
 
         } else {
-            mMatchingTask.cancel(true);
+            matchingTask.cancel(true);
             startMatch(matchTerm);
         }
     }
 
     private void startMatch(String searchTerm) {
-        mMatchingTask = new MatchingTask();
-        mMatchingTask.execute(searchTerm);
+        matchingTask = new MatchingTask();
+        matchingTask.execute(searchTerm);
     }
 
     class MatchingTask extends AsyncTask<String, AutocompleteItem, Void> {
@@ -63,12 +61,12 @@ public class AutocompleteDataSource {
 
             Date operationStart = new Date();
 
-            for (String compareString : mAutocompleteDataSource) {
+            for (String compareString : autocompleteDataSource) {
 
                 AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, matchTerm);
                 AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
                 if (autocompleteItem != null && autocompleteItem.getSelectedRanges() != null) {
-                    autocompleteItem.setSpannableRange(mSelectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
+                    autocompleteItem.setSpannableRange(selectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
                     publishProgress(autocompleteItem);
                 }
             }
@@ -81,12 +79,12 @@ public class AutocompleteDataSource {
 
         @Override
         protected void onPreExecute() {
-            mMatchable.clearMatches();
+            matchable.clearMatches();
         }
 
         @Override
         protected void onProgressUpdate(AutocompleteItem... autocompleteItems) {
-            mMatchable.foundMatch(autocompleteItems[0]);
+            matchable.foundMatch(autocompleteItems[0]);
         }
 
         @Override

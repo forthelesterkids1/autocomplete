@@ -3,43 +3,41 @@ package com.autocomplete.util;
 import com.autocomplete.model.AutocompleteItem;
 import com.autocomplete.model.SelectedRange;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class AutoCompleteMatcher {
 
-    private String mMasterCompareString;
-    private String mMasterMatchString;
-    private AutocompleteItem mItem;
+    private String masterCompareString;
+    private String masterMatchString;
+    private AutocompleteItem autocompleteItem;
 
     public AutoCompleteMatcher(String masterCompareString, String masterMatchString) {
-        this.mMasterCompareString = masterCompareString;
-        this.mMasterMatchString = masterMatchString;
-        this.mItem = new AutocompleteItem(masterCompareString, new ArrayList<SelectedRange>());
+        this.masterCompareString = masterCompareString;
+        this.masterMatchString = masterMatchString;
+        this.autocompleteItem = new AutocompleteItem(masterCompareString, new ArrayList<SelectedRange>());
     }
 
     /**
      * public method to match strings
      *
-     * @return populated Autocomplete item
+     * @return populated Autocomplete autocompleteItem
      */
     public AutocompleteItem matchStrings() {
-        return stringsMatch(mMasterCompareString, mMasterMatchString);
+        return stringsMatch(masterCompareString, masterMatchString);
     }
 
-    private AutocompleteItem stringsMatch(String compareString, String matchTerm) {
+    private AutocompleteItem stringsMatch(String compareString, String matchTerm) throws InvalidParameterException {
         if(matchTerm.length() == 0 || compareString.length() == 0){
-            return null;
+            throw new InvalidParameterException("String must have length greater that 0");
         }
 
         int indexOf = compareString.toLowerCase().indexOf(matchTerm.charAt(0));
         if (indexOf != 0) {
-            return null;
+            throw new InvalidParameterException("Compare string must contain matchterm");
         }
         else {
-            return matchIndexOf(mMasterCompareString, mMasterMatchString);
+            return matchIndexOf(masterCompareString, masterMatchString);
 
         }
     }
@@ -58,7 +56,7 @@ public class AutoCompleteMatcher {
             }
 
         }
-        return mItem;
+        return autocompleteItem;
     }
 
     /**
@@ -68,6 +66,6 @@ public class AutoCompleteMatcher {
      * @param upper
      */
     private void appendSelectedRange(int lower, int upper) {
-        mItem.getSelectedRanges().add(new SelectedRange(lower, upper));
+        autocompleteItem.getSelectedRanges().add(new SelectedRange(lower, upper));
     }
 }

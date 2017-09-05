@@ -4,41 +4,30 @@ import android.text.Spannable;
 
 import java.util.ArrayList;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class AutocompleteItem {
 
-    private String mAutocompleteTerm;
-    private ArrayList<SelectedRange> mSelectedRanges;
-    private Spannable mSpannableRange;
+    private String autocompleteTerm;
+    private ArrayList<SelectedRange> selectedRanges;
+    private Spannable spannableRange;
 
     public AutocompleteItem(String autocompleteTerm, ArrayList<SelectedRange> selectedRanges){
-        this.mAutocompleteTerm = autocompleteTerm;
-        this.mSelectedRanges = selectedRanges;
+        this.autocompleteTerm = autocompleteTerm;
+        this.selectedRanges = selectedRanges;
     }
     public String getAutocompleteTerm() {
-        return mAutocompleteTerm;
-    }
-
-    public void setAutocompleteTerm(String mAutocompleteTerm) {
-        this.mAutocompleteTerm = mAutocompleteTerm;
+        return autocompleteTerm;
     }
 
     public ArrayList<SelectedRange> getSelectedRanges() {
-        return mSelectedRanges;
-    }
-
-    public void setSelectedRanges(ArrayList<SelectedRange> mSelectedRanges) {
-        this.mSelectedRanges = mSelectedRanges;
+        return selectedRanges;
     }
 
     public void setSpannableRange(Spannable spannableRange){
-        this.mSpannableRange = spannableRange;
+        this.spannableRange = spannableRange;
     }
 
     public Spannable getSpannableRange(){
-        return mSpannableRange;
+        return spannableRange;
     }
 
 }

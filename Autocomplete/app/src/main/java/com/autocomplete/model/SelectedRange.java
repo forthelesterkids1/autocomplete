@@ -1,8 +1,5 @@
 package com.autocomplete.model;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class SelectedRange {
 
     private int lowerIndex;
@@ -18,15 +15,8 @@ public class SelectedRange {
         return lowerIndex;
     }
 
-    public void setLowerIndex(int lowerIndex) {
-        this.lowerIndex = lowerIndex;
-    }
-
     public int getUpperIndex() {
         return upperIndex;
     }
 
-    public void setUpperIndex(int upperIndex) {
-        this.upperIndex = upperIndex;
-    }
 }

@@ -13,16 +13,13 @@ import com.autocomplete.view.R;
 
 import java.util.List;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem> implements Matchable {
 
-    private final Activity mActivityContext;
+    private final Activity activityContext;
 
     public AutocompleteAdapter(Activity activityContext, int resource, List<AutocompleteItem> autocompleteList) {
         super(activityContext, resource, autocompleteList);
-        this.mActivityContext = activityContext;
+        this.activityContext = activityContext;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem> implemen
         final AutocompleteItem autocompleteItem = super.getItem(position);
         final ViewHolder viewHolder = new ViewHolder();
 
-        final LayoutInflater inflater = mActivityContext.getLayoutInflater();
+        final LayoutInflater inflater = activityContext.getLayoutInflater();
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.listview_autocomplete_element, null);
         }

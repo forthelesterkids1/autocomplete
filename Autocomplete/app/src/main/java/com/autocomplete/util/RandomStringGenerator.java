@@ -1,24 +1,18 @@
 package com.autocomplete.util;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-/**
- * Created by christopherlester on 4/24/15.
- */
 public class RandomStringGenerator {
 
     static final String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static Random random = new Random();
-    private Context mContext;
+    private Context context;
 
     public RandomStringGenerator(Context context){
-        this.mContext = context;
+        this.context = context;
     }
     /**
      * Generate random string to be used as dummy data
@@ -51,19 +45,4 @@ public class RandomStringGenerator {
 
         return alphaNumericStringList;
     }
-
-    public ArrayList<String> loadPackageNames(){
-        ArrayList<String> packageNames = new ArrayList<>();
-
-        ArrayList<PackageInfo> res = new ArrayList<PackageInfo>();
-        PackageManager pm = mContext.getPackageManager();
-        List<PackageInfo> packs = pm.getInstalledPackages(0);
-
-        for(PackageInfo info:packs){
-            packageNames.add(info.packageName);
-        }
-
-        return packageNames;
-    }
-
 }
