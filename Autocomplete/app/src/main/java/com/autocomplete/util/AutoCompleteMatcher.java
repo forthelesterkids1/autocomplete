@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class AutoCompleteMatcher {
 
-    private String masterCompareString;
-    private String masterMatchString;
+    private String comparisonString;
+    private String matchSequence;
     private AutocompleteItem autocompleteItem;
 
-    public AutoCompleteMatcher(String masterCompareString, String masterMatchString) {
-        this.masterCompareString = masterCompareString;
-        this.masterMatchString = masterMatchString;
+    public AutoCompleteMatcher(String masterCompareString, String matchSequence) {
+        this.comparisonString = masterCompareString;
+        this.matchSequence = matchSequence;
         this.autocompleteItem = new AutocompleteItem(masterCompareString, new ArrayList<SelectedRange>());
     }
 
@@ -23,23 +23,17 @@ public class AutoCompleteMatcher {
      *
      * @return populated Autocomplete autocompleteItem
      */
-    public AutocompleteItem matchStrings() {
-        return stringsMatch(masterCompareString, masterMatchString);
+    public AutocompleteItem matchStrings() throws InvalidParameterException {
+        return matchStrings(comparisonString, matchSequence);
     }
 
-    private AutocompleteItem stringsMatch(String compareString, String matchTerm) throws InvalidParameterException {
+    private AutocompleteItem matchStrings(String compareString, String matchTerm) throws InvalidParameterException {
         if(matchTerm.length() == 0 || compareString.length() == 0){
             throw new InvalidParameterException("String must have length greater that 0");
         }
 
-        int indexOf = compareString.toLowerCase().indexOf(matchTerm.charAt(0));
-        if (indexOf != 0) {
-            throw new InvalidParameterException("Compare string must contain matchterm");
-        }
-        else {
-            return matchIndexOf(masterCompareString, masterMatchString);
-
-        }
+        return compareString.toLowerCase().indexOf(matchTerm.charAt(0)) == 0 ?
+                matchIndexOf(comparisonString, matchSequence) : null;
     }
 
     private AutocompleteItem matchIndexOf(String compareString, String matchTerm) {

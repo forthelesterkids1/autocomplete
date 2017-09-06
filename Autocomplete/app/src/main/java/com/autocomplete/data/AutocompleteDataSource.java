@@ -1,23 +1,25 @@
 package com.autocomplete.data;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.autocomplete.model.AutocompleteItem;
 import com.autocomplete.util.AutoCompleteMatcher;
 import com.autocomplete.util.PerformanceTest;
 import com.autocomplete.util.SelectedRangeFormatter;
 
-import java.util.Collection;
+import java.security.InvalidParameterException;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import static java.lang.System.nanoTime;
 
 public class AutocompleteDataSource {
 
-    private Collection<? extends String> autocompleteDataSource;
+    private final String TAG = getClass().getName();
+    private List<String> autocompleteDataSource;
     private Matchable matchable;
     private MatchingTask matchingTask;
-    private SelectedRangeFormatter selectedRangeFormatter = new SelectedRangeFormatter();
 
     public AutocompleteDataSource(Matchable matchable, List<String> dataSource) {
         this.matchable = matchable;
@@ -29,7 +31,7 @@ public class AutocompleteDataSource {
         setAutocompleteDataSource(dataSource);
     }
 
-    public void setAutocompleteDataSource(List<String>autocompleteDataSource) {
+    public void setAutocompleteDataSource(List<String> autocompleteDataSource) {
         this.autocompleteDataSource = autocompleteDataSource;
     }
 
@@ -59,20 +61,22 @@ public class AutocompleteDataSource {
                 return null;
             }
 
-            Date operationStart = new Date();
-
+            long operationStart = nanoTime();
             for (String compareString : autocompleteDataSource) {
 
                 AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, matchTerm);
-                AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
-                if (autocompleteItem != null && autocompleteItem.getSelectedRanges() != null) {
-                    autocompleteItem.setSpannableRange(selectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
-                    publishProgress(autocompleteItem);
+                try {
+                    AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
+                    if ((autocompleteItem != null) && (autocompleteItem.getSelectedRanges() != null)) {
+                        autocompleteItem.setSpannableRange(SelectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
+                        publishProgress(autocompleteItem);
+                    }
+                } catch (InvalidParameterException ipe){
+                    Log.e(TAG, "Invalid parameter used: " + ipe.getStackTrace());
                 }
             }
-
-            Date operationEnd = new Date();
-            PerformanceTest.getInstance().printDuration(operationStart, operationEnd);
+            long operationEnd = System.nanoTime();
+            PerformanceTest.printDuration(operationStart, operationEnd);
 
             return null;
         }

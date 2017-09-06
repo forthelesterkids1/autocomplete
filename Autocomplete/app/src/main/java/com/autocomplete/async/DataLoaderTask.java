@@ -6,10 +6,9 @@ import android.os.AsyncTask;
 import com.autocomplete.data.Searchable;
 import com.autocomplete.util.RandomStringGenerator;
 
-import java.util.Collection;
 import java.util.List;
 
-public class DataLoaderTask extends AsyncTask<Void, Void, Collection<String>> {
+public class DataLoaderTask extends AsyncTask<Void, Void, List<String>> {
 
     private Searchable searchable;
     private Context context;
@@ -26,7 +25,7 @@ public class DataLoaderTask extends AsyncTask<Void, Void, Collection<String>> {
      * @return Collection<String> of random strings
      */
     @Override
-    protected Collection<String> doInBackground(Void... obj) {
+    protected List<String> doInBackground(Void... obj) {
 
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator(context);
         return randomStringGenerator.loadRandomAlphanumericStrings(30, 1000);

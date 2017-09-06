@@ -14,7 +14,7 @@ public class SelectedRangeFormatter {
      * @param autocompleteItem
      * @return formatted spannable string
      */
-    public Spannable formatAutoCompleteItemAsSpannableText(AutocompleteItem autocompleteItem)
+    public static Spannable formatAutoCompleteItemAsSpannableText(AutocompleteItem autocompleteItem)
     {
         return formatAutoCompleteItemAsSpannableText(autocompleteItem, Color.GREEN);
     }
@@ -25,7 +25,7 @@ public class SelectedRangeFormatter {
      * @param color
      * @return formatted spannable string
      */
-    public Spannable formatAutoCompleteItemAsSpannableText(AutocompleteItem autocompleteItem, int color)
+    public static Spannable formatAutoCompleteItemAsSpannableText(AutocompleteItem autocompleteItem, int color)
     {
         String stringToFormat = autocompleteItem.getAutocompleteTerm();
         Spannable selectedSpan = Spannable.Factory.getInstance().newSpannable(stringToFormat);

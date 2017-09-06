@@ -40,17 +40,6 @@ public class AutocompleteAdapter extends ArrayAdapter<AutocompleteItem> implemen
         return convertView;
     }
 
-    /**
-     * update adapter with new search results
-     * @param autocompleteList
-     */
-    public void searchResultsChanged(List<AutocompleteItem> autocompleteList) {
-        clear();
-        addAll(autocompleteList);
-        notifyDataSetChanged();
-
-    }
-
     @Override
     public void foundMatch(AutocompleteItem item) {
         add(item);

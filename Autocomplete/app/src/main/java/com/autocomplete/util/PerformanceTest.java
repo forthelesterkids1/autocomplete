@@ -2,25 +2,12 @@ package com.autocomplete.util;
 
 import android.util.Log;
 
-import java.util.Date;
-
-/**
- * Created by christopherlester on 5/3/15.
- */
 public class PerformanceTest {
 
     private static final String TAG = PerformanceTest.class.getName();
 
-    private static PerformanceTest mPerformanceTest = null;
-    public static PerformanceTest getInstance(){
-        if(mPerformanceTest == null){
-            mPerformanceTest = new PerformanceTest();
-        }
-        return mPerformanceTest;
-    }
-
-    public void printDuration(Date start, Date end){
-        long diff = end.getTime() - start.getTime();
-        Log.i(TAG, "Duration:" + Long.toString(diff) + " ms");
+    public static void printDuration(long operationStart, long operationEnd){
+        long diff = operationEnd - operationStart;
+        Log.i(TAG, "Duration:" + (diff / 1000000) + " ms");
     }
 }
