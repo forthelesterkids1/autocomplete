@@ -75,7 +75,7 @@ public class AutocompleteDataSource {
                     Log.e(TAG, "Invalid parameter used: " + ipe.getStackTrace());
                 }
             }
-            long operationEnd = System.nanoTime();
+            long operationEnd = nanoTime();
             PerformanceTest.printDuration(operationStart, operationEnd);
 
             return null;
