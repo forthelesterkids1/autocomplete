@@ -12,10 +12,10 @@ public class AutoCompleteMatcher {
     private String matchSequence;
     private AutocompleteItem autocompleteItem;
 
-    public AutoCompleteMatcher(String masterCompareString, String matchSequence) {
-        this.comparisonString = masterCompareString;
+    public AutoCompleteMatcher(String comparisonString, String matchSequence) {
+        this.comparisonString = comparisonString;
         this.matchSequence = matchSequence;
-        this.autocompleteItem = new AutocompleteItem(masterCompareString, new ArrayList<SelectedRange>());
+        this.autocompleteItem = new AutocompleteItem(comparisonString, new ArrayList<SelectedRange>());
     }
 
     /**

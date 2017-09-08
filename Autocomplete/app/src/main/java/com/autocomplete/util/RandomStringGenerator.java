@@ -1,7 +1,5 @@
 package com.autocomplete.util;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,11 +7,7 @@ public class RandomStringGenerator {
 
     static final String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static Random random = new Random();
-    private Context context;
-
-    public RandomStringGenerator(Context context){
-        this.context = context;
-    }
+    
     /**
      * Generate random string to be used as dummy data
      * @param stringLength
