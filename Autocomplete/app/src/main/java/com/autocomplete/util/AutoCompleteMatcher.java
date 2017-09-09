@@ -7,7 +7,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 public class AutoCompleteMatcher {
-    
+
     public AutocompleteItem matchStrings(String compareString, String matchTerm) throws InvalidParameterException {
         if(matchTerm.length() == 0 || compareString.length() == 0){
             throw new InvalidParameterException("String must have length greater that 0");
