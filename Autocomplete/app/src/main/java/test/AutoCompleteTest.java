@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class AutoCompleteTest {
@@ -20,9 +21,15 @@ public class AutoCompleteTest {
 
     @Test
     public void testAutoCompleteReturnsNull(){
-        AutocompleteDataSource autocompleteDataSource = getAutoCompleteDataSource();
         AutocompleteItem autocompleteItem = new AutoCompleteMatcher().matchStrings("abcd", "accc");
         assertNull(autocompleteItem);
+
+    }
+
+    @Test
+    public void testAutoCompleteReturnsValue(){
+        AutocompleteItem autocompleteItem = new AutoCompleteMatcher().matchStrings("abc", "aaaaa");
+        assertNotNull(autocompleteItem);
 
     }
 
