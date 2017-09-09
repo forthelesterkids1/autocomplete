@@ -7,7 +7,7 @@ public class RandomStringGenerator {
 
     static final String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static Random random = new Random();
-    
+
     /**
      * Generate random string to be used as dummy data
      * @param stringLength

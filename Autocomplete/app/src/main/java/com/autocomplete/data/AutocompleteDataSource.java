@@ -64,9 +64,8 @@ public class AutocompleteDataSource {
             long operationStart = nanoTime();
             for (String compareString : autocompleteDataSource) {
 
-                AutoCompleteMatcher autoCompleteMatcher = new AutoCompleteMatcher(compareString, matchTerm);
                 try {
-                    AutocompleteItem autocompleteItem = autoCompleteMatcher.matchStrings();
+                    AutocompleteItem autocompleteItem = new AutoCompleteMatcher().matchStrings(compareString, matchTerm);
                     if ((autocompleteItem != null) && (autocompleteItem.getSelectedRanges() != null)) {
                         autocompleteItem.setSpannableRange(SelectedRangeFormatter.formatAutoCompleteItemAsSpannableText(autocompleteItem));
                         publishProgress(autocompleteItem);
